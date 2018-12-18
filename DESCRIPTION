@@ -1,0 +1,19 @@
+Package: marvel
+Type: Package
+Title: An R Interface for Marvel API
+Version: 0.1.0
+Authors@R: person("Weixuan", "Wu", email = "ww2493@columbia.edu",
+  role = c("aut", "cre"))
+Maintainer: Weixuan Wu <ww2493@columbia.edu>
+Description: Make calls to Marvel API, and return information in well-organized data frames.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    httr,
+    digest
+RoxygenNote: 6.1.0.9000
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

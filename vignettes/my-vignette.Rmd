@@ -1,0 +1,198 @@
+---
+title: "Marvel Package Vignette"
+author: Weixuan Wu
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Marvel Package Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE
+)
+```
+
+```{r, echo = FALSE}
+# user_renviron = path.expand(file.path("~", ".Renviron"))
+# file.edit(user_renviron) 
+# library(httr)
+# public_key = Sys.getenv("MARVEL_API_PUBLIC_KEY")
+# private_key = Sys.getenv("MARVEL_API_PRIVATE_KEY")
+```
+
+
+This Marvel package provides an R interface to interact with the official Marvel API. This package contains six functions that return requested information in a formated R dataframe: 
+  1. get_characters
+  2. get_comics
+  3. get_creators
+  4. get_events
+  5. get_series
+  6. get_stories
+
+Most of the information is available scattered throughout the R documentation. This vignette brings it all together in one place.
+
+### get_characters
+
+This function accepts 4 arguments: id, name, offset, and limit. All arguments are optional.
+
+If the user does not pass any input, as in the code below, this function by default will return the brief information of the first 20 entries. Brief information includes the character's ID, name, and number of comics available. 
+
+```{r}
+marvel::get_characters()
+```
+
+Offset allows users to skip the first n entries, and limit specifies the number of entries returned. For example, the code below will skip the first 20 characters in the Marvel database, and return the brief information of characters 21, 22, and 23. 
+```{r, eval = FALSE}
+marvel::get_characters(offset = 20, limit = 3)
+```
+
+In addition, if the user specifies the unique character id or character name, the function will return detailed information of the character, which includes: ID, name, description, number of comics available, comics names, number of series, number of stories, and number of events associated with this character.
+Also, if the user specifies limit = 1, the function will also return the detailed information of the character. 
+```{r, eval = FALSE}
+marvel::get_characters(id = 1009610)
+marvel::get_characters(offset = 30, limit = 1)
+```
+
+```{r}
+marvel::get_characters(name = "Spider-Man")
+```
+
+### get_comics
+
+This function accepts 3 arguments: id, offset, and limit. All arguments are optional.
+
+If the user does not pass any input, as in the code below, this function by default will return the brief information of the first 20 entries. Brief information includes the comics's ID, title, and issue number.
+
+```{r}
+marvel::get_comics()
+```
+
+Offset allows users to skip the first n entries, and limit specifies the number of entries returned. For example, the code below will skip the first 20 comics in the Marvel database, and return the brief information of the 21st, 22nd, and 23rd comics. 
+```{r, eval = FALSE}
+marvel::get_comics(offset = 20, limit = 3)
+```
+
+In addition, if the user specifies the unique comics id, the function will return detailed information of the comics, which includes: ID, title, issue number, number of creators, number of characters, character names, number of stories, and number of events. 
+Also, if the user specifies limit = 1, the function will also return the detailed information of the comics.
+```{r, eval = FALSE}
+marvel::get_comics(id = 59548)
+```
+
+```{r}
+marvel::get_comics(offset = 30, limit = 1)
+```
+
+### get_creators
+
+This function accepts 3 arguments: id, offset, and limit. All arguments are optional.
+
+If the user does not pass any input, as in the code below, this function by default will return the brief information of the first 20 creators. Brief information includes the creator's ID, full name, and number of comics.
+
+```{r}
+marvel::get_creators()
+```
+
+Offset allows users to skip the first n entries, and limit specifies the number of entries returned. For example, the code below will skip the first 20 creators in the Marvel database, and return the brief information of the 21st, 22nd, and 23rd creators. 
+```{r, eval = FALSE}
+marvel::get_creators(offset = 20, limit = 3)
+```
+
+In addition, if the user specifies the unique creator id, the function will return detailed information of the creator, which includes: ID, full name, number of comics, comics names, number of series, number of stories, number of events, events names.
+Also, if the user specifies limit = 1, the function will also return the detailed information of the creator.
+```{r, eval = FALSE}
+marvel::get_creators(offset = 40, limit = 1)
+```
+
+```{r}
+marvel::get_creators(id = 3188)
+```
+
+
+### get_events
+
+This function accepts 4 arguments: id, name, offset, and limit. All arguments are optional.
+
+If the user does not pass any input, as in the code below, this function by default will return the brief information of the first 20 events in Marvel database. Brief information includes the event's ID, title, and start and end date.
+
+```{r}
+marvel::get_events()
+```
+
+Offset allows users to skip the first n entries, and limit specifies the number of entries returned. For example, the code below will skip the first 20 events in the Marvel database, and return the brief information of the 21st, 22nd, and 23rd events. 
+```{r, eval = FALSE}
+marvel::get_events(offset = 20, limit = 3)
+```
+
+In addition, if the user specifies the unique event id or event name, the function will return detailed information of the event, which includes: ID, title, description, start and end date, number of creators, number of characters, character names, number of stories, stories names, number of comics, number of series, previous event, and next event. 
+
+Also, if the user specifies limit = 1, the function will also return the detailed information of the event. 
+```{r, eval = FALSE}
+marvel::get_events(name = "Spider-Verse")
+marvel::get_events(offset = 40, limit = 1)
+```
+
+```{r}
+marvel::get_events(id = 321)
+```
+
+
+### get_series
+
+This function accepts 3 arguments: id, offset, and limit. All arguments are optional.
+
+If the user does not pass any input, as in the code below, this function by default will return the brief information of the first 20 series in Marvel database. Brief information includes the series's ID, title, and start and end date.
+
+```{r}
+marvel::get_series()
+```
+
+Offset allows users to skip the first n entries, and limit specifies the number of entries returned. For example, the code below will skip the first 20 series in the Marvel database, and return the brief information of the 21st, 22nd, and 23rd series. 
+```{r, eval = FALSE}
+marvel::get_series(offset = 20, limit = 3)
+```
+
+In addition, if the user specifies the unique series id, the function will return detailed information of the event, which includes: ID, title, description, start and end date, rating, type, creators available, creators' names, characters available, characters names, stories available, stories names, comics available, comics names, events available, events names, previous event, and next event. 
+
+Also, if the user specifies limit = 1, the function will also return the detailed information of the series.
+```{r, eval = FALSE}
+marvel::get_series(id = 1234)
+```
+
+```{r}
+marvel::get_series(offset = 40, limit = 1)
+```
+
+### get_stories
+
+This function accepts 3 arguments: id, offset, and limit. All arguments are optional.
+
+If the user does not pass any input, as in the code below, this function by default will return the brief information of the first 20 stories in Marvel database. Brief information includes the story's ID and title.
+
+```{r}
+marvel::get_stories()
+```
+
+Offset allows users to skip the first n entries, and limit specifies the number of entries returned. For example, the code below will skip the first 20 stories in the Marvel database, and return the brief information of the 21st, 22nd, and 23rd stories. 
+```{r, eval = FALSE}
+marvel::get_stories(offset = 20, limit = 3)
+```
+
+In addition, if the user specifies the unique story id, the function will return detailed information of the story, which includes: ID, title, description, type, creators available, creators' names, characters available, characters' names, series available, series names, comics available, comics names, events available, events names, original issue numbeer.  
+
+Also, if the user specifies limit = 1, the function will also return the detailed information of the story. 
+```{r, eval = FALSE}
+marvel::get_stories(offset = 400, limit = 1)
+```
+
+```{r}
+marvel::get_stories(id = 12)
+```
+
+
+
+
